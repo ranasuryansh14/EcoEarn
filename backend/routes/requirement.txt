@@ -7,6 +7,6 @@
 
 ----------- merchant side ------------
 -> qr code scanner
--> transction amount of user
+-> transection amount of user
 -> connect by mobile no.
 
