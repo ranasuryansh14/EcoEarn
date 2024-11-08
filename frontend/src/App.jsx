@@ -3,7 +3,7 @@
 export default function App() {
   return (
     <>
-      <div className="">Hello from app</div>
+      <div className="bg-blue-700">Hello from app</div>
     </>
   )
 }
