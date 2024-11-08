@@ -1,0 +1,11 @@
+------------ user side ----------------
+-> landing page
+-> auth by mobile no. using passport(prefer) / third party ---> clerk
+-> show transactions
+-> show total green credits
+-> redeem credits
+
+------------- merchant side ---------------
+-> scan qr code of bag
+-> mobile number and transaction proceed
+

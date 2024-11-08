@@ -1,0 +1,12 @@
+----------- user side -------------
+-> signin using mobile no. OTP
+-> total green credits
+-> green credits on each transaction
+-> redeem credits
+
+
+----------- merchant side ------------
+-> qr code scanner
+-> transction amount of user
+-> connect by mobile no.
+
