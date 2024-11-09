@@ -20,7 +20,7 @@ const ProductCard = () => {
             {/* Image Section */}
             <div className="md:w-1/2 mt-6 md:mt-0 md:m-8">
                 <img
-                    src="bag.jpg"
+                    src="prod.png"
                     alt="Eco-Friendly Bag"
                     className="w-full h-auto max-h-60 object-cover rounded-lg shadow-md"
                 />
