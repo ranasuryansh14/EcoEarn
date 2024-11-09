@@ -4,11 +4,11 @@ export default function ImageTextComponent() {
   return (
     <div className="flex flex-col md:flex-row items-center justify-between px-4 py-8 space-y-8 md:space-y-0">
       {/* Left side: Image */}
-      <div className="w-full md:w-1/2 flex justify-center">
+      <div className="md:w-1/2 mt-6 md:mt-0 md:m-8">
         <img
-          src="bag2.png" 
+          src="bag.jpg" 
           alt="Description"
-          className="w-90 max-h-80 md:max-h-80 object-cover rounded-lg"
+          className="w-full h-auto max-h-60 object-cover rounded-lg shadow-md"
         />
       </div>
 
