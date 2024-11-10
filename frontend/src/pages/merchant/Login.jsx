@@ -26,13 +26,7 @@ export default function MerchantLogin() {
         <>
             <div className="h-screen w-screen bg-gradient-to-br from-green-800 to-green-600 flex justify-center items-center">
                 <div className="h-[90%] w-[80%] flex shadow-2xl rounded-lg overflow-hidden">
-                    <div className="bg-green-700 w-[50%] flex flex-col justify-center items-center p-10">
-                        <div className="text-white text-5xl font-extrabold mb-4 drop-shadow-lg">Eco Earn</div>
-                        <p className="text-white text-lg text-center max-w-md leading-relaxed">
-                            Join us in promoting sustainability! Sign up to offer green credits and encourage eco-friendly choices.
-                        </p>
-                    </div>
-                    <div className="bg-white w-[50%] flex flex-col justify-center items-center p-10">
+                    <div className="bg-white w-full flex flex-col justify-center items-center p-10">
                         <div className="text-4xl font-bold text-gray-800 mb-6">Merchant Login</div>
                         <div className="w-full max-w-xs space-y-6">
                             <div className="flex flex-col text-left">
