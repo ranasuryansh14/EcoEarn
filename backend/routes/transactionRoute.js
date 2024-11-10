@@ -1,10 +1,11 @@
 const express = require("express")
-const { transactionController } = require("../controllers/transactionController")
+const { transactionController, getUserTransactions } = require("../controllers/transactionController")
 const authenticateMerchant = require("../middlewares/merchantMiddleware")
 
 const router = express.Router()
 
-router.post("/transaction", authenticateMerchant, transactionController)
+router.post("/payment", authenticateMerchant, transactionController)
+router.get("/logs/:userId", getUserTransactions)
 
 
 module.exports = router
