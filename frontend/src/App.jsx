@@ -9,6 +9,9 @@ import TotalCredits from './pages/TotalCrerdits'
 import MerchantSignup from './pages/merchant/Signup'
 import MerchantLogin from './pages/merchant/Login'
 import MerchantDashboard from './pages/merchant/MerchantDashboard'
+import Blog from './pages/Blog'
+import AboutUs from './pages/AboutUs'
+
 
 export default function App() {
   return (
@@ -16,6 +19,8 @@ export default function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<LandingPage />} />
+        <Route path="/Blog" element={<Blog />} />
+        <Route path="/About" element={<AboutUs />} />
         <Route path='/signup' element={<Signup />} />
         <Route path='/login' element={<Login />}  />
         <Route path='/verify' element={<Otp />} />
