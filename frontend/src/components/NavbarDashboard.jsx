@@ -4,6 +4,12 @@ import { useNavigate } from "react-router-dom";  // Importing useNavigate
 
 export default function NavbarDashboard() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
+
+  const handleLogout = () => {
+    localStorage.clear();
+    window.location.href = "/login";
+  };
   const navigate = useNavigate();  // Initialize navigate function
 
   return (
@@ -52,9 +58,13 @@ export default function NavbarDashboard() {
         </div>
 
         {/* Profile Button */}
+        {/* Profile Button */}
         <div>
-          <button className="border-2 border-white rounded-lg px-6 py-2 bg-green-500 text-white font-semibold flex items-center space-x-2">
-            <FaUserCircle /> {/* Profile icon */}
+          <button
+            onClick={() => setIsLogoutModalOpen(true)}
+            className="border-2 border-white rounded-lg px-6 py-2 bg-green-500 text-white font-semibold flex items-center space-x-2"
+          >
+            <FaUserCircle />
             <span>Profile</span>
           </button>
         </div>
@@ -80,6 +90,30 @@ export default function NavbarDashboard() {
             className="flex items-center space-x-2 cursor-pointer"
           >
             <span>About us</span>
+          </div>
+        </div>
+      )}
+
+      {/* Logout Modal */}
+      {isLogoutModalOpen && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-white p-6 rounded-lg shadow-lg w-80">
+            <h3 className="text-xl font-semibold mb-4">Log Out</h3>
+            <p className="text-gray-600 mb-6">Are you sure you want to log out?</p>
+            <div className="flex justify-end space-x-4">
+              <button
+                onClick={() => setIsLogoutModalOpen(false)}
+                className="px-4 py-2 rounded bg-gray-300 text-gray-700"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleLogout}
+                className="px-4 py-2 rounded bg-red-500 text-white"
+              >
+                Log Out
+              </button>
+            </div>
           </div>
         </div>
       )}

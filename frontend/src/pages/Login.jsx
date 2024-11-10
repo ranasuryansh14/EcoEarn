@@ -2,6 +2,8 @@ import { useState } from "react";
 import countryCodeList from "country-codes-list";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function Login() {
     const [name, setName] = useState("");
@@ -12,7 +14,16 @@ export default function Login() {
 
     const fullMobile = `${countryCode}${mobile}`;
 
+    // Custom function to handle login process
     async function loginHandler() {
+        if ( !mobile) {
+            toast.error("Please fill in all fields");
+            return;
+        }
+
+        // Show loading toast
+        const toastId = toast.loading("Generating OTP... Please wait!");
+
         try {
             const response = await axios.post("http://localhost:3000/api/v1/auth/login", {
                 name: name,
@@ -21,8 +32,24 @@ export default function Login() {
             console.log(response.data);
             localStorage.setItem("mobile", response.data.mobile);
             navigate("/verify");
+
+            // Update toast with success message
+            toast.update(toastId, {
+                render: "OTP sent successfully",
+                type: "success",
+                isLoading: false,
+                autoClose: 2000, // Auto close after 2 seconds
+            });
         } catch (error) {
-            console.log(error);
+            console.error(error);
+
+            // Update toast with error message
+            toast.update(toastId, {
+                render: "OTP generation failed. Please try again.",
+                type: "error",
+                isLoading: false,
+                autoClose: 2000,
+            });
         }
     }
 

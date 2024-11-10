@@ -28,32 +28,45 @@ const UserTransactions = () => {
     if (error) return <div className="text-center text-red-500 py-10">{error}</div>;
 
     return (
-        <div className="container mx-auto p-4">
-            <div>
-                <NavbarDashboard />
-            </div>
-            <h2 className="text-3xl font-bold text-center mb-6 text-gray-800">Transactions Logs</h2>
-            {transactions.length > 0 ? (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {transactions.map((transaction) => (
-                        <div key={transaction._id} className="bg-white rounded-lg shadow-lg p-6">
-                            <h3 className="text-lg font-semibold text-green-600">Transaction ID: {transaction.transactionId}</h3>
-                            <p className="mt-2">
-                                <span className="font-semibold">Amount:</span> ${transaction.amount}
-                            </p>
-                            <p className="mt-1">
-                                <span className="font-semibold">Green Credits:</span> {transaction.greenCredits}
-                            </p>
-                            <p className="mt-1">
-                                <span className="font-semibold">Date:</span> {new Date(transaction.transactionDate).toLocaleString()}
-                            </p>
+<div className="container mx-auto p-4">
+    <div>
+        <NavbarDashboard />
+    </div>
+    <h2 className="text-3xl font-bold text-center mb-6 text-gray-800">Transaction Logs</h2>
+    {transactions.length > 0 ? (
+        <div className="space-y-6">
+            {transactions.map((transaction, index) => (
+                <div key={transaction._id} className="bg-white rounded-lg shadow-lg p-6">
+                    <div className="flex flex-col space-y-2">
+                        <div className="flex justify-between">
+                            <span className="font-semibold text-gray-600">Transaction ID:</span>
+                            <span className="text-gray-800 font-medium">{transaction.transactionId}</span>
                         </div>
-                    ))}
+                        <div className="flex justify-between">
+                            <span className="font-semibold text-gray-600">Amount:</span>
+                            <span className="text-red-600 font-medium">${transaction.amount}</span>
+                        </div>
+                        <div className="flex justify-between">
+                            <span className="font-semibold text-green-800">Eco Coins:</span>
+                            <span className="text-green-600 font-medium">{transaction.greenCredits}</span>
+                        </div>
+                        <div className="flex justify-between">
+                            <span className="font-semibold text-gray-600">Date:</span>
+                            <span className="text-yellow-500 font-medium">{new Date(transaction.transactionDate).toLocaleString()}</span>
+                        </div>
+                    </div>
+                    {index < transactions.length - 1 && (
+                        <hr className="border-t border-gray-200 my-4" />
+                    )}
                 </div>
-            ) : (
-                <div className="text-center text-gray-500 py-10">No transactions available.</div>
-            )}
+            ))}
         </div>
+    ) : (
+        <div className="text-center text-gray-500 py-10">No transactions available.</div>
+    )}
+</div>
+
+
     );
 };
 

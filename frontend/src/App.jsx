@@ -9,9 +9,9 @@ import TotalCredits from './pages/TotalCrerdits'
 import MerchantSignup from './pages/merchant/Signup'
 import MerchantLogin from './pages/merchant/Login'
 import MerchantDashboard from './pages/merchant/MerchantDashboard'
+import { ToastContainer } from 'react-toastify'
 import Blog from './pages/Blog'
 import AboutUs from './pages/AboutUs'
-
 
 export default function App() {
   return (
@@ -33,6 +33,7 @@ export default function App() {
         <Route path='/merchant/login' element={<MerchantLogin />} />
         <Route path='/merchant/dashboard' element={<MerchantDashboard />} />
       </Routes>
+      <ToastContainer />
     </BrowserRouter>
     </>
   )
