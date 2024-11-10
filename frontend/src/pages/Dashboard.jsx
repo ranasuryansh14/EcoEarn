@@ -6,11 +6,15 @@ import Store from "../components/Store";
 import TermsAndConditions from "../components/TermsAndConditions";
 import Footer from "../components/Footer";
 
-
 export default function Dashboard() {
     const [profilePic, setProfilePic] = useState(null); 
     const navigate = useNavigate();
 
+    const subscriptions = [
+        "Spotify Subscription",
+        "YouTube Subscription",
+        "Amazon Prime"
+    ];
 
     // Function to handle profile picture upload
     const handleProfilePicChange = (e) => {
@@ -26,7 +30,7 @@ export default function Dashboard() {
 
     return (
         <>
-            <NavbarDashboard/>
+            <NavbarDashboard />
             <div className="max-w-3xl mx-auto p-6 bg-white rounded-lg shadow-lg mt-10">
                 {/* Profile Header */}
                 <div className="flex flex-col items-center md:flex-row md:items-center md:justify-between">
@@ -35,7 +39,7 @@ export default function Dashboard() {
                         {/* Display the profile photo or a placeholder */}
                         <div className="w-24 h-24 md:w-32 md:h-32 rounded-full overflow-hidden border-2 border-green-500">
                             <img
-                                src={profilePic || "https://via.placeholder.com/150"}
+                                src={profilePic || "836.jpg"}  // Use the uploaded picture or fallback to default
                                 alt="User Profile"
                                 className="w-full h-full object-cover"
                             />
@@ -52,21 +56,20 @@ export default function Dashboard() {
 
                     {/* User Info */}
                     <div className="mt-4 md:mt-0 md:ml-6 text-center md:text-left">
-                        <h2 className="text-2xl font-bold text-gray-800">{localStorage.getItem("name") ? localStorage.getItem("name") : "N/A"}</h2>
-                        <p className="text-gray-600 mt-1">Phone: {localStorage.getItem("mobile")}</p>
-                        <p className="text-gray-600">Eco Points: <span className="text-green-600 font-semibold">{localStorage.getItem("credits")}</span></p>
+                        <h2 className="text-2xl font-bold text-gray-800">
+                            {localStorage.getItem("name") || "N/A"}
+                        </h2>
+                        <p className="text-gray-600 mt-1">
+                            Phone: {localStorage.getItem("mobile")}
+                        </p>
+                        <p className="text-gray-600">
+                            Eco Points: <span className="text-green-600 font-semibold">{localStorage.getItem("credits")}</span>
+                        </p>
                     </div>
                 </div>
 
                 {/* Action Buttons */}
                 <div className="mt-6 flex justify-center md:justify-end space-x-4">
-                    {/* <button
-                        onClick={() => document.querySelector('input[type="file"]').click()}
-                        className="flex items-center px-6 py-2 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-700 transition"
-                    >
-                        <FaUserCircle className="mr-2" /> 
-                        Add
-                    </button> */}
                     <button
                         onClick={() => navigate("/transaction")}
                         className="px-6 py-2 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-700 transition"
@@ -85,15 +88,11 @@ export default function Dashboard() {
             {/* Coupons Section */}
             <div className="mt-3 text-3xl text-center font-bold">Coupons</div>
             <div className="flex flex-wrap justify-center gap-4">
-                <div className="w-full sm:w-1/2 md:w-1/4">
-                    <SquishyCard />
-                </div>
-                <div className="w-full sm:w-1/2 md:w-1/4">
-                    <SquishyCard />
-                </div>
-                <div className="w-full sm:w-1/2 md:w-1/4">
-                    <SquishyCard />
-                </div>
+                {subscriptions.map((subscription, index) => (
+                    <div key={index} className="w-full sm:w-1/2 md:w-1/4">
+                        <SquishyCard subscriptions={[subscription]} />
+                    </div>
+                ))}
             </div>
 
             {/* Company Partners Section */}
@@ -101,8 +100,8 @@ export default function Dashboard() {
             <Store />
 
             {/* Terms and Conditions Section */}
-            <TermsAndConditions/>
-            <Footer/>
+            <TermsAndConditions />
+            <Footer />
         </>
     );
 }

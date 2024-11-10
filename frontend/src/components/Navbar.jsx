@@ -30,13 +30,22 @@ export default function Navbar() {
 
         {/* Navigation Links for Desktop */}
         <div className="hidden md:flex gap-8 font-medium">
-          <div className="flex items-center space-x-2 cursor-pointer">
+          <div
+            onClick={() => navigate("/")}
+            className="flex items-center space-x-2 cursor-pointer"
+          >
             <span>Home</span>
           </div>
-          <div className="flex items-center space-x-2 cursor-pointer">
+          <div
+            onClick={() => navigate("/Blog")}
+            className="flex items-center space-x-2 cursor-pointer"
+          >
             <span>Blogs</span>
           </div>
-          <div className="flex items-center space-x-2 cursor-pointer">
+          <div
+            onClick={() => navigate("/about")}
+            className="flex items-center space-x-2 cursor-pointer"
+          >
             <span>About us</span>
           </div>
         </div>
@@ -66,13 +75,22 @@ export default function Navbar() {
       {/* Mobile Menu */}
       {isMobileMenuOpen && (
         <div className="md:hidden p-4 flex flex-col items-center space-y-4">
-          <div className="flex items-center space-x-2 cursor-pointer">
+          <div
+            onClick={() => navigate("/")}
+            className="flex items-center space-x-2 cursor-pointer"
+          >
             <span>Home</span>
           </div>
-          <div className="flex items-center space-x-2 cursor-pointer">
+          <div
+            onClick={() => navigate("/Blog")}
+            className="flex items-center space-x-2 cursor-pointer"
+          >
             <span>Blogs</span>
           </div>
-          <div className="flex items-center space-x-2 cursor-pointer">
+          <div
+            onClick={() => navigate("/about")}
+            className="flex items-center space-x-2 cursor-pointer"
+          >
             <span>About us</span>
           </div>
         </div>
