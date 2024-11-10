@@ -16,7 +16,7 @@ const ShuffleHero = () => {
           error repellat voluptatibus ad.
         </p>
         <button className="bg-green-500 text-white font-medium py-2 px-4 rounded transition-all hover:bg-green-600 active:scale-95">
-          Find a class
+          Go-Green
         </button>
       </div>
       <ShuffleGrid />
