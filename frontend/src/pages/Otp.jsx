@@ -9,7 +9,6 @@ export default function Otp() {
     const navigate = useNavigate();
 
     const fullMobile = localStorage.getItem("mobile");
-    const fullMobile = localStorage.getItem("mobile");
 
     const handleOtpChange = (element, index) => {
         const newOtp = [...otp];
