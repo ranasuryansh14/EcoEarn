@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Navbar from "../components/Navbar";
+import NavbarDashboard from "../components/NavbarDashboard";
 import { useNavigate } from "react-router-dom";
 import SquishyCard from "../components/SquishyCard";
 import Store from "../components/Store";
@@ -10,6 +10,7 @@ import Footer from "../components/Footer";
 export default function Dashboard() {
     const [profilePic, setProfilePic] = useState(null); 
     const navigate = useNavigate();
+
 
     // Function to handle profile picture upload
     const handleProfilePicChange = (e) => {
@@ -25,7 +26,7 @@ export default function Dashboard() {
 
     return (
         <>
-            <Navbar/>
+            <NavbarDashboard/>
             <div className="max-w-3xl mx-auto p-6 bg-white rounded-lg shadow-lg mt-10">
                 {/* Profile Header */}
                 <div className="flex flex-col items-center md:flex-row md:items-center md:justify-between">
@@ -51,9 +52,9 @@ export default function Dashboard() {
 
                     {/* User Info */}
                     <div className="mt-4 md:mt-0 md:ml-6 text-center md:text-left">
-                        <h2 className="text-2xl font-bold text-gray-800">John Doe</h2>
-                        <p className="text-gray-600 mt-1">Phone: +1 123 456 7890</p>
-                        <p className="text-gray-600">Eco Points: <span className="text-green-600 font-semibold">450</span></p>
+                        <h2 className="text-2xl font-bold text-gray-800">{localStorage.getItem("name") ? localStorage.getItem("name") : "N/A"}</h2>
+                        <p className="text-gray-600 mt-1">Phone: {localStorage.getItem("mobile")}</p>
+                        <p className="text-gray-600">Eco Points: <span className="text-green-600 font-semibold">{localStorage.getItem("credits")}</span></p>
                     </div>
                 </div>
 

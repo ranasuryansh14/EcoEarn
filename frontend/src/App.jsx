@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route} from 'react-router-dom'
 import LandingPage from './pages/LandingPage'
-import Auth from './pages/Auth'
+import Signup from './pages/Signup'
+import Login from './pages/Login'
 import Otp from './pages/Otp'
 import Dashboard from './pages/Dashboard'
 import TransactionLogs from './pages/TransactionLogs'
@@ -15,7 +16,8 @@ export default function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<LandingPage />} />
-        <Route path='/auth' element={<Auth />} />
+        <Route path='/signup' element={<Signup />} />
+        <Route path='/login' element={<Login />}  />
         <Route path='/verify' element={<Otp />} />
         <Route path='/dashboard' element={<Dashboard />}/>
         <Route path='/transaction' element={<TransactionLogs />} />

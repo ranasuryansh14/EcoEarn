@@ -12,15 +12,11 @@ const UserTransactions = () => {
     useEffect(() => {
         const fetchTransactions = async () => {
             try {
-                const response = await axios.get(`http://localhost:3000/api/v1/transaction/logs/${userId}`, {
-                    headers: {
-                        "Authorization": "Bearer " + localStorage.getItem("merchantToken"),
-                    }
-                });
+                const response = await axios.get(`http://localhost:3000/api/v1/transaction/logs/${userId}`);
                 setTransactions(response.data.transactions);
                 setLoading(false);
-            } catch (err) {
-                setError('Failed to fetch transactions');
+            } catch (error) {
+                setError('Failed to fetch transactions',error);
                 setLoading(false);
             }
         };

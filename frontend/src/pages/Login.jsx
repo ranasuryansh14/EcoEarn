@@ -3,9 +3,9 @@ import countryCodeList from "country-codes-list";
 import axios from "axios"
 import { useNavigate } from "react-router-dom";
 
-export default function Auth() {
+export default function Login() {
     const [name, setName] = useState("");
-    const [countryCode, setCountryCode] = useState("+1"); 
+    const [countryCode, setCountryCode] = useState("+91"); 
     const [mobile, setMobile] = useState("");
 
     const navigate = useNavigate()
@@ -41,18 +41,8 @@ export default function Auth() {
                     <div className="bg-white w-[50%] flex flex-col justify-center items-center p-10">
                         <div className="text-4xl font-bold text-gray-800 mb-6">Login</div>
                         <div className="w-full max-w-xs space-y-6">
-                            <div className="flex flex-col text-left">
-                                <label htmlFor="name" className="text-sm font-semibold text-gray-600 mb-1">Name</label>
-                                <input 
-                                    id="name"
-                                    type="text" 
-                                    placeholder="Enter your name"
-                                    className="w-full border border-gray-300 rounded-md px-3 py-2 text-gray-700 focus:outline-none focus:ring-2 focus:ring-green-600 focus:border-transparent"
-                                    onChange={(e) => setName(e.target.value)}
-                                />
-                            </div>
-                            <div className="flex flex-col text-left w-full max-w-xs space-y-6">
-                                <div className="text-sm font-semibold text-gray-600 mb-1">Mobile Number</div>
+                            <div className="flex flex-col text-left w-full max-w-xs space-y-3">
+                                <div className="text-sm font-semibold text-gray-600 ">Mobile Number</div>
                                 
                                 <div className="flex space-x-2">
                                     {/* Country Code Dropdown */}
@@ -85,6 +75,7 @@ export default function Auth() {
                                 Send OTP
                             </button>
                         </div>
+                        <div className="text-green-700 underline mt-2 ml-32 cursor-pointer" onClick={() => navigate("/signup")}>Register a new account !</div>
                     </div>
                 </div>
             </div>
