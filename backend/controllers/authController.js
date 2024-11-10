@@ -80,7 +80,7 @@ const otpVerificationSchema = z.object({
       user.isVerified = true;
       await user.save();
   
-      res.status(200).json({ message: 'OTP verified successfully', user: user.name});
+      res.status(200).json({ message: 'OTP verified successfully', user: user.name, userId: user._id});
     } catch (error) {
       console.error(error);
       res.status(500).json({ message: 'Failed to verify OTP. Please try again later.' });
