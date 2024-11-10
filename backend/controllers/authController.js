@@ -4,7 +4,7 @@ const generateOTP = require('../utils/otpGenerator');
 const twilio = require('twilio');
 const client = twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
 
-
+//signup
 const signupSchema = z.object({
   name: z.string().min(1, { message: 'Name is required' }),
   mobile: z.string().regex(/^\+\d{1,3}\d{9,12}$/, { message: 'Invalid mobile number format' }),
@@ -80,7 +80,7 @@ const otpVerificationSchema = z.object({
       user.isVerified = true;
       await user.save();
   
-      res.status(200).json({ message: 'OTP verified successfully', user: user.name, userId: user._id});
+      res.status(200).json({ message: 'OTP verified successfully', user: user});
     } catch (error) {
       console.error(error);
       res.status(500).json({ message: 'Failed to verify OTP. Please try again later.' });
@@ -88,4 +88,43 @@ const otpVerificationSchema = z.object({
   }
 
 
-module.exports = { generateOtpController, verifyOtpController };
+  //login
+  const loginSchema = z.object({
+    mobile: z.string().regex(/^\+\d{1,3}\d{9,12}$/, { message: 'Invalid mobile number format' }),
+  });
+  
+  async function generateOtpControllerLogin(req, res) {
+    const parsedData = loginSchema.safeParse(req.body);
+  
+    if (!parsedData.success) {
+      return res.status(400).json({ errors: parsedData.error.errors });
+    }
+  
+    const { mobile } = parsedData.data;
+    const otp = generateOTP();
+    const otpExpires = new Date(Date.now() + 5 * 60 * 1000); // OTP expires in 5 minutes
+  
+    try {
+      const existingUser = await User.findOne({ mobile });
+      if (!existingUser) {
+        return res.status(400).json({ message: 'User with this mobile number does not exists' });
+      }
+      await client.messages.create({
+        body: `Your OTP code is ${otp}`,
+        from: process.env.TWILIO_PHONE_NUMBER,
+        to: mobile,
+      });
+
+        existingUser.otp = otp;
+        existingUser.otpExpires = otpExpires;
+        await existingUser.save();
+  
+      res.status(200).json({ message: 'OTP sent to your mobile number', mobile: existingUser.mobile});
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'Failed to send OTP. Please try again later.' });
+    }
+  }
+
+
+module.exports = { generateOtpController, verifyOtpController, generateOtpControllerLogin };

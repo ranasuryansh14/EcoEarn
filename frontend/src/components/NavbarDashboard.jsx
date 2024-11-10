@@ -1,21 +1,68 @@
-import { FaCircleUser } from "react-icons/fa6";
+import { useState } from "react";
+import { FaUserCircle } from "react-icons/fa";
 
 export default function NavbarDashboard() {
-    return(
-        <>
-            <div className="flex justify-between items-center p-4">
-                <div className="font-semibold text-[2rem] text-green-700">
-                    EcoEarn
-                </div>
-                <div className="flex justify-between gap-20 font-medium">
-                    <div className="px-5 py-2 rounded-3xl hover:bg-green-700 hover:text-white cursor-pointer">Home</div>
-                    <div className="px-5 py-2 rounded-3xl hover:bg-green-700 hover:text-white cursor-pointer">Blogs</div>
-                    <div className="px-5 py-2 rounded-3xl hover:bg-green-700 hover:text-white cursor-pointer">About us</div>
-                </div>
-                <div className="mr-5">
-                    <FaCircleUser className="size-8 text-green-700" />
-                </div>
-            </div>
-        </>
-    )
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  return (
+    <>
+      <div className="flex justify-between items-center p-4 bg-white ">
+        {/* Logo */}
+        <div className="flex font-semibold text-2xl">
+          <img
+            src="Earn.png"
+            alt="Description"
+            className="w-8 h-8 md object-cover "
+          />
+          EcoEarn
+        </div>
+
+        {/* Navigation Links for Desktop */}
+        <div className="hidden md:flex gap-8 font-medium">
+          <div className="flex items-center space-x-2">
+            <span>Home</span>
+          </div>
+          <div className="flex items-center space-x-2">
+            <span>Blogs</span>
+          </div>
+          <div className="flex items-center space-x-2">
+            <span>About us</span>
+          </div>
+        </div>
+
+        {/* Hamburger Icon for Mobile */}
+        <div className="md:hidden flex items-center">
+          <button
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            className="text-2xl"
+          >
+            {isMobileMenuOpen ? "☰" : "☰"}
+          </button>
+        </div>
+
+        {/* Register Button */}
+        <div>
+          <button className="border-2 border-white rounded-lg px-6 py-2 bg-green-500 text-white font-semibold flex items-center space-x-2">
+            <FaUserCircle /> {/* Add icon to the button */}
+            <span>Profile</span>
+          </button>
+        </div>
+      </div>
+
+      {/* Mobile Menu */}
+      {isMobileMenuOpen && (
+        <div className="md:hidden p-4 flex flex-col items-center space-y-4">
+          <div className="flex items-center space-x-2">
+            <span>Home</span>
+          </div>
+          <div className="flex items-center space-x-2">
+            <span>Blogs</span>
+          </div>
+          <div className="flex items-center space-x-2">
+            <span>About us</span>
+          </div>
+        </div>
+      )}
+    </>
+  );
 }

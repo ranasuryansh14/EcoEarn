@@ -28,7 +28,9 @@ export default function Otp() {
                 otp: otpCode
             });
             console.log(response.data);
-            localStorage.setItem("userId", response.data.userId)
+            localStorage.setItem("userId", response.data.user._id)
+            localStorage.setItem("name", response.data.user.name)
+            localStorage.setItem("credits", response.data.user.greenCredits)
             navigate("/dashboard")
         } catch (error) {
             console.log(error);
