@@ -1,14 +1,18 @@
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function MerchantLogin() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [loading, setLoading] = useState(false); // Loading state to show a loading indicator
 
     const navigate = useNavigate();
 
     async function loginHandler() {
+        setLoading(true); // Set loading to true when the request starts
         try {
             const response = await axios.post("http://localhost:3000/api/v1/auth/merchant-login", {
                 email,
@@ -16,9 +20,21 @@ export default function MerchantLogin() {
             });
             console.log(response.data);
             localStorage.setItem("merchantToken", response.data.token);
-            navigate("/merchant/dashboard");
+
+            // Show success toast
+            toast.success("Logged in successfully! Redirecting to dashboard...");
+
+            // Redirect after a short delay
+            setTimeout(() => {
+                navigate("/merchant/dashboard");
+            }, 2000); // 2 seconds delay to let the user read the success message
         } catch (error) {
             console.log(error);
+
+            // Show error toast
+            toast.error("Login failed. Please check your credentials.");
+        } finally {
+            setLoading(false); // Set loading to false after the request completes
         }
     }
 
@@ -27,7 +43,7 @@ export default function MerchantLogin() {
             <div className="h-[90%] w-[95%] md:w-[80%] lg:w-[70%] xl:w-[60%] flex flex-col md:flex-row shadow-2xl rounded-lg overflow-hidden">
                 {/* Eco Earn Section */}
                 <div className="bg-green-700 w-full md:w-[50%] flex flex-col justify-center items-center p-6 md:p-10 order-1 md:order-1">
-                <div className="flex font-semibold text-4xl">
+                    <div className="flex font-semibold text-4xl">
                         <img
                             src="../Earnwbg.png"
                             alt="Description"
@@ -68,8 +84,9 @@ export default function MerchantLogin() {
                         <button
                             className="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-2 rounded-md shadow-md transition-all duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-green-600"
                             onClick={loginHandler}
+                            disabled={loading} // Disable button when loading
                         >
-                            Log In
+                            {loading ? "Logging In..." : "Log In"}
                         </button>
                     </div>
                 </div>

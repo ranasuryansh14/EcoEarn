@@ -3,7 +3,9 @@ import countryCodeList from 'country-codes-list';
 import MerchantNavbar from '../../components/merchant/MerchantNavbar';
 import { useNavigate } from 'react-router-dom';
 import { QrReader } from 'react-qr-reader';
-import axios from "axios"
+import axios from "axios";
+import { toast } from 'react-toastify'; // Import toast
+import 'react-toastify/dist/ReactToastify.css'; // Import toast styles
 
 export default function MerchantDashboard() {
     const [countryCode, setCountryCode] = useState("+91");
@@ -13,6 +15,7 @@ export default function MerchantDashboard() {
     const [transactionAmount, setTransactionAmount] = useState(""); // State for transaction amount
     const [isTransactionVisible, setIsTransactionVisible] = useState(false); // Flag to show transaction input
     const navigate = useNavigate();
+    
     const fullMobile = `${countryCode}${mobile}`;
     const customList = countryCodeList.customList('countryCode', '{countryCode} +{countryCallingCode}');
 
@@ -24,7 +27,6 @@ export default function MerchantDashboard() {
             try {
                 // Now parse the corrected data
                 const parsedData = JSON.parse(validJsonData);
-                console.log(parsedData)
                 setQrData(parsedData); // Store the parsed data
                 setIsScanning(false); // Stop scanning
                 setIsTransactionVisible(true); // Show transaction input
@@ -34,23 +36,19 @@ export default function MerchantDashboard() {
             }
         }
     };
-    
 
     const handleError = (error) => {
         console.error("QR Scan Error:", error);
     };
 
-    const handleSubmit = async() => {
+    const handleSubmit = async () => {
         if (!fullMobile || !qrData || !transactionAmount) {
             alert("Please enter a mobile number, scan a QR code, and input the transaction amount.");
             return;
         }
-        // Logic to submit the data to backend or navigate
-        // console.log("Full Mobile Number:", fullMobile);
-        // console.log("QR Data:", qrData);
-        // console.log("Transaction Amount:", transactionAmount);
+
         try {
-            const response = await axios.post("http://localhost:3000/api/v1/transaction/transaction", {
+            const response = await axios.post("http://localhost:3000/api/v1/transaction/payment", {
                 qrCode: {
                     company_id: qrData.company_id,
                     bag_id: qrData.bag_id         
@@ -60,12 +58,20 @@ export default function MerchantDashboard() {
             }, {
                 headers: {
                     'Content-Type': 'application/json',
-                    "Authorization":"Bearer " + localStorage.getItem("merchantToken")
+                    "Authorization": "Bearer " + localStorage.getItem("merchantToken")
                 }
-            })
-            console.log(response.data)
+            });
+
+            // Display success toast notification
+            toast.success("Transaction successful!");
+
+            // Reset form state after successful transaction
+            setMobile("");
+            setQrData(null);
+            setTransactionAmount("");
         } catch (error) {
-            console.log(error)
+            console.log(error);
+            toast.error("Transaction failed. Please try again.");
         }
     };
 
@@ -123,7 +129,7 @@ export default function MerchantDashboard() {
                             </div>
                         ) : (
                             <button
-                                onClick={() => setIsScanning(true)}
+                                onClick={() => { setIsScanning(true); }}
                                 className="w-[10rem] bg-green-600 hover:bg-green-700 text-white font-semibold py-2 rounded-md shadow-md transition-all duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-green-600"
                             >
                                 Scan QR Code
@@ -134,7 +140,7 @@ export default function MerchantDashboard() {
                     {/* Display QR Data if Scanned */}
                     {qrData && (
                         <div className="mt-4 text-center text-green-800 font-semibold">
-                            Qr Successfully Scanned
+                            QR Successfully Scanned
                         </div>
                     )}
 

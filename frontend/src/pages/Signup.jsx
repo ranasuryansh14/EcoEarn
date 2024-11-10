@@ -2,6 +2,8 @@ import { useState } from "react";
 import countryCodeList from "country-codes-list";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function Signup() {
     const [name, setName] = useState("");
@@ -12,7 +14,16 @@ export default function Signup() {
 
     const fullMobile = `${countryCode}${mobile}`;
 
+    // Custom function to handle the signup process
     async function loginHandler() {
+        if (!name || !mobile) {
+            toast.error("Please fill in all fields");
+            return;
+        }
+
+        // Show loading toast
+        const toastId = toast.loading("Generating OTP... Please wait!");
+
         try {
             const response = await axios.post("http://localhost:3000/api/v1/auth/signup", {
                 name: name,
@@ -21,8 +32,24 @@ export default function Signup() {
             console.log(response.data);
             localStorage.setItem("mobile", response.data.mobile);
             navigate("/verify");
+
+            // Update toast with success message
+            toast.update(toastId, {
+                render: "OTP sent successfully",
+                type: "success",
+                isLoading: false,
+                autoClose: 2000, // Auto close after 2 seconds
+            });
         } catch (error) {
-            console.log(error);
+            console.error(error);
+
+            // Update toast with error message
+            toast.update(toastId, {
+                render: "OTP generation failed. Please try again.",
+                type: "error",
+                isLoading: false,
+                autoClose: 2000,
+            });
         }
     }
 
@@ -31,7 +58,6 @@ export default function Signup() {
     return (
         <div className="h-screen w-screen bg-gradient-to-br from-green-800 to-green-600 flex justify-center items-center">
             <div className="h-[90%] w-[95%] md:w-[80%] lg:w-[70%] xl:w-[60%] flex flex-col md:flex-row shadow-2xl rounded-lg overflow-hidden">
-                {/* Eco Earn Section - Reversed for mobile */}
                 <div className="bg-green-700 w-full md:w-[50%] flex flex-col justify-center items-center p-6 md:p-10 order-1 md:order-1">
                     <div className="flex font-semibold text-4xl">
                         <img
@@ -46,7 +72,6 @@ export default function Signup() {
                     </p>
                 </div>
 
-                {/* Signup Form Section - Reversed for mobile, and moved to right on desktop */}
                 <div className="bg-white w-full md:w-[50%] flex flex-col justify-center items-center p-6 md:p-10 order-2 md:order-2">
                     <div className="text-3xl md:text-4xl font-bold text-gray-800 mb-6">Signup</div>
                     <div className="w-full max-w-xs space-y-6">
@@ -63,7 +88,6 @@ export default function Signup() {
                         <div className="flex flex-col text-left w-full max-w-xs space-y-6">
                             <div className="text-sm font-semibold text-gray-600 mb-1">Mobile Number</div>
                             <div className="flex space-x-2">
-                                {/* Country Code Dropdown */}
                                 <select
                                     id="countryCode"
                                     value={countryCode}
@@ -75,7 +99,6 @@ export default function Signup() {
                                     ))}
                                 </select>
 
-                                {/* Mobile Number Input */}
                                 <input
                                     id="mobile"
                                     type="number"

@@ -3,6 +3,12 @@ import { FaUserCircle } from "react-icons/fa";
 
 export default function NavbarDashboard() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
+
+  const handleLogout = () => {
+    localStorage.clear();
+    window.location.href = "/login";
+  };
 
   return (
     <>
@@ -12,7 +18,7 @@ export default function NavbarDashboard() {
           <img
             src="Earn.png"
             alt="Description"
-            className="w-8 h-8 md object-cover "
+            className="w-8 h-8 object-cover"
           />
           EcoEarn
         </div>
@@ -40,10 +46,13 @@ export default function NavbarDashboard() {
           </button>
         </div>
 
-        {/* Register Button */}
+        {/* Profile Button */}
         <div>
-          <button className="border-2 border-white rounded-lg px-6 py-2 bg-green-500 text-white font-semibold flex items-center space-x-2">
-            <FaUserCircle /> {/* Add icon to the button */}
+          <button
+            onClick={() => setIsLogoutModalOpen(true)}
+            className="border-2 border-white rounded-lg px-6 py-2 bg-green-500 text-white font-semibold flex items-center space-x-2"
+          >
+            <FaUserCircle />
             <span>Profile</span>
           </button>
         </div>
@@ -60,6 +69,30 @@ export default function NavbarDashboard() {
           </div>
           <div className="flex items-center space-x-2">
             <span>About us</span>
+          </div>
+        </div>
+      )}
+
+      {/* Logout Modal */}
+      {isLogoutModalOpen && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-white p-6 rounded-lg shadow-lg w-80">
+            <h3 className="text-xl font-semibold mb-4">Log Out</h3>
+            <p className="text-gray-600 mb-6">Are you sure you want to log out?</p>
+            <div className="flex justify-end space-x-4">
+              <button
+                onClick={() => setIsLogoutModalOpen(false)}
+                className="px-4 py-2 rounded bg-gray-300 text-gray-700"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleLogout}
+                className="px-4 py-2 rounded bg-red-500 text-white"
+              >
+                Log Out
+              </button>
+            </div>
           </div>
         </div>
       )}
