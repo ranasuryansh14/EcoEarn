@@ -16,7 +16,7 @@ Through our collaborations, we incentivize the use of eco-friendly products whil
 - **Promote Recycling**: Encourage customers to reduce their carbon footprint by using recyclable bags.
 - **Customer Incentives**: Gain eco-points through product scans, fostering a loyal, environmentally conscious customer base.
 
-vedio link <button> "https://youtu.be/ONtKUKefzb0?feature=shared"</button>
+video link <button> "https://youtu.be/ONtKUKefzb0?feature=shared"</button>
 ## Installation
 
 ### Prerequisites
